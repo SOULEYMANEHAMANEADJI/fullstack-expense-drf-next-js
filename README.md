@@ -13,6 +13,10 @@ Application fullstack moderne de gestion des dépenses et revenus personnels, co
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0-38bdf8.svg)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+[![CI/CD](https://github.com/SOULEYMANEHAMANEADJI/fullstack-expense-drf-next-js/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/SOULEYMANEHAMANEADJI/fullstack-expense-drf-next-js/actions)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](TESTING.md)
+[![Coverage](https://img.shields.io/badge/coverage-70%25-yellowgreen.svg)](TESTING.md)
+
 [Démo](#-captures-décran) • [Installation](#-installation) • [Documentation](#-documentation) • [API](#-api-endpoints)
 
 </div>
@@ -26,6 +30,7 @@ Cette application est **entièrement développée** avec toutes les fonctionnali
 ## 🚀 Fonctionnalités
 
 ### Backend (Django REST Framework)
+
 - ✅ **CRUD Complet** - Transactions et Catégories
 - ✅ **Pagination** - 10 éléments par page (configurable)
 - ✅ **Filtres Avancés** - Type, catégorie, montant, dates
@@ -39,6 +44,7 @@ Cette application est **entièrement développée** avec toutes les fonctionnali
 - ✅ **Seeder** - 12 catégories + 30 transactions de test
 
 ### Frontend (Next.js + React)
+
 - ✅ **Interface Moderne** - TailwindCSS + DaisyUI
 - ✅ **CRUD Complet** - Ajouter, modifier, supprimer
 - ✅ **Liste Paginée** - Navigation entre les pages
@@ -53,6 +59,7 @@ Cette application est **entièrement développée** avec toutes les fonctionnali
 ## 🛠️ Technologies
 
 ### Backend
+
 - Django 5.2
 - Django REST Framework
 - django-cors-headers
@@ -60,6 +67,7 @@ Cette application est **entièrement développée** avec toutes les fonctionnali
 - SQLite
 
 ### Frontend
+
 - Next.js 15.4.5 (App Router + Turbopack)
 - React 19.1.0
 - TypeScript
@@ -72,6 +80,7 @@ Cette application est **entièrement développée** avec toutes les fonctionnali
 ## 📋 Installation
 
 ### Prérequis
+
 - Python 3.10+
 - Node.js 18+
 - npm ou yarn
@@ -105,7 +114,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Le backend sera accessible sur **http://localhost:8000**
+Le backend sera accessible sur **<http://localhost:8000>**
 
 ### 2. Frontend
 
@@ -119,20 +128,21 @@ npm install
 npm run dev
 ```
 
-Le frontend sera accessible sur **http://localhost:3000**
+Le frontend sera accessible sur **<http://localhost:3000>**
 
 ## 🌐 URLs
 
-- **Application :** http://localhost:3000
-- **API Backend :** http://localhost:8000/api/
-- **Admin Django :** http://localhost:8000/admin
-- **Export CSV :** http://localhost:8000/api/transactions/export/csv/
+- **Application :** <http://localhost:3000>
+- **API Backend :** <http://localhost:8000/api/>
+- **Admin Django :** <http://localhost:8000/admin>
+- **Export CSV :** <http://localhost:8000/api/transactions/export/csv/>
 
 ## 📖 Documentation
 
 - **[FEATURES_COMPLETE.md](FEATURES_COMPLETE.md)** - Liste complète des fonctionnalités
+- **[TESTING.md](TESTING.md)** - ⭐ Guide des tests automatisés (Pytest + Jest)
 - **[VALIDATION_COMPLETE.md](VALIDATION_COMPLETE.md)** - Documentation de validation
-- **[TEST_API.md](TEST_API.md)** - Guide de tests API
+- **[TEST_API.md](TEST_API.md)** - Guide de tests API manuels
 - **[CORRECTIONS_FINALES.md](CORRECTIONS_FINALES.md)** - Dernières corrections effectuées
 - **[FRONTEND_TODO.md](frontend/FRONTEND_TODO.md)** - Guide détaillé du frontend
 - **[MIGRATION.md](backend/MIGRATION.md)** - Guide de migration
@@ -141,6 +151,7 @@ Le frontend sera accessible sur **http://localhost:3000**
 ## 📊 API Endpoints
 
 ### Transactions
+
 - `GET /api/transactions/` - Liste des transactions (paginée)
 - `POST /api/transactions/` - Créer une transaction
 - `GET /api/transactions/{id}/` - Détails d'une transaction
@@ -149,6 +160,7 @@ Le frontend sera accessible sur **http://localhost:3000**
 - `GET /api/transactions/export/csv/` - Exporter en CSV
 
 ### Catégories
+
 - `GET /api/categories/` - Liste des catégories
 - `POST /api/categories/` - Créer une catégorie
 - `GET /api/categories/{id}/` - Détails d'une catégorie
@@ -157,11 +169,13 @@ Le frontend sera accessible sur **http://localhost:3000**
 - `GET /api/categories/statistics/` - Statistiques par catégorie
 
 ### Statistiques
+
 - `GET /api/statistics/` - Statistiques globales
 
 ## 🎨 Captures d'Écran
 
 ### Dashboard Principal
+
 - Statistiques visuelles (solde, revenus, dépenses, ratio)
 - Barre de recherche
 - Filtres (type, catégorie)
@@ -169,12 +183,14 @@ Le frontend sera accessible sur **http://localhost:3000**
 - Bouton Ajouter
 
 ### Liste des Transactions
+
 - Tableau avec pagination
 - Colonnes : #, Description, Catégorie, Montant, Date, Actions
 - Badges colorés pour les catégories
 - Icônes pour modifier/supprimer
 
 ### Modal Ajout/Modification
+
 - Formulaire dynamique
 - Champs : Texte, Montant, Catégorie (dropdown)
 - Validation en temps réel
@@ -182,18 +198,58 @@ Le frontend sera accessible sur **http://localhost:3000**
 
 ## 🧪 Tests
 
-### Tests Backend
+### Tests Backend (Pytest)
+
 ```bash
-# Lancer les tests (si configurés)
-python manage.py test
+cd backend
+
+# Installer les dépendances de test
+pip install -r requirements.txt
+
+# Lancer tous les tests
+pytest
+
+# Tests avec couverture
+pytest --cov=api --cov-report=html
+
+# Ouvrir le rapport de couverture
+open htmlcov/index.html
 ```
 
-### Tests Frontend
-Voir [TEST_API.md](TEST_API.md) pour les tests manuels détaillés.
+### Tests Frontend (Jest)
+
+```bash
+cd frontend
+
+# Installer les dépendances
+npm install
+
+# Lancer tous les tests
+npm test
+
+# Tests avec couverture
+npm run test:coverage
+
+# Tests en mode watch
+npm run test:watch
+```
+
+### CI/CD
+
+Le projet inclut GitHub Actions pour :
+
+- ✅ Tests automatiques (backend + frontend)
+- ✅ Vérification de la couverture de code
+- ✅ Build automatique
+- ✅ Déploiement sur Vercel
+- ✅ Analyse de sécurité (CodeQL)
+
+Voir [TESTING.md](TESTING.md) pour plus de détails.
 
 ## 🐛 Bugs Corrigés
 
 ### Version actuelle (2025-11-16)
+
 - ✅ Filtre par catégorie maintenant fonctionnel
 - ✅ Export CSV accessible (ordre des routes corrigé)
 - ✅ Tous les filtres validés et testés
@@ -208,8 +264,10 @@ Voir [CORRECTIONS_FINALES.md](CORRECTIONS_FINALES.md) pour les détails.
 - [ ] Transactions récurrentes
 - [ ] Upload de reçus/factures
 - [ ] Support multi-devises
-- [ ] Tests automatisés (Pytest + Jest)
-- [ ] Déploiement Docker + CI/CD
+- [x] Tests automatisés (Pytest + Jest) ✅
+- [x] CI/CD avec GitHub Actions ✅
+- [ ] Déploiement Docker
+- [ ] API Documentation (Swagger/OpenAPI)
 
 ## 📝 Structure du Projet
 
@@ -252,6 +310,7 @@ fullstack-expense/
 ### Variables d'environnement
 
 **Backend** (`.env`) :
+
 ```env
 SECRET_KEY=your-secret-key-here
 DEBUG=True
@@ -259,6 +318,7 @@ CORS_ALLOWED_ORIGINS=http://localhost:3000
 ```
 
 **Frontend** (`.env.local`) :
+
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8000/
 ```
