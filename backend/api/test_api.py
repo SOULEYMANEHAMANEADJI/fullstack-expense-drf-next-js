@@ -153,7 +153,6 @@ class TestTransactionAPI:
         data = {
             'text': 'Updated Transaction',
             'amount': '500.00',
-            'category': None
         }
         response = api_client.put(
             f'/api/transactions/{sample_transaction.id}/',

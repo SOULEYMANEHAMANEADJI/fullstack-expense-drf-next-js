@@ -31,7 +31,9 @@ jobs:
     - name: Create .env file
       run: |
         cd backend
-        cp .env.example .env
+        echo "SECRET_KEY=django-insecure-test-key-for-ci" > .env
+        echo "DEBUG=False" >> .env
+        echo "ALLOWED_HOSTS=localhost,127.0.0.1" >> .env
 
     - name: Run migrations
       run: |
@@ -42,14 +44,16 @@ jobs:
     - name: Run tests with pytest
       run: |
         cd backend
-        pytest --cov=api --cov-report=xml --cov-report=term-missing
+        pytest --cov=api --cov-report=xml --cov-report=term-missing --cov-report=html
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
+      if: always()
       with:
         file: ./backend/coverage.xml
         flags: backend
         name: backend-coverage
+        fail_ci_if_error: false
 
   # Frontend Tests
   frontend-tests:
@@ -69,24 +73,28 @@ jobs:
     - name: Install dependencies
       run: |
         cd frontend
-        npm ci
+        npm ci --legacy-peer-deps
 
     - name: Run linter
       run: |
         cd frontend
-        npm run lint || true
+        npm run lint
 
     - name: Run tests
       run: |
         cd frontend
-        npm test -- --passWithNoTests || true
+        npm run test:coverage
+      env:
+        NEXT_PUBLIC_API_URL: http://localhost:8000/
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
+      if: always()
       with:
         file: ./frontend/coverage/coverage-final.json
         flags: frontend
         name: frontend-coverage
+        fail_ci_if_error: false
 
   # Build Backend
   build-backend:
@@ -111,7 +119,9 @@ jobs:
     - name: Create .env file
       run: |
         cd backend
-        cp .env.example .env
+        echo "SECRET_KEY=django-insecure-test-key-for-ci" > .env
+        echo "DEBUG=False" >> .env
+        echo "ALLOWED_HOSTS=localhost,127.0.0.1" >> .env
 
     - name: Check for migrations
       run: |
@@ -142,7 +152,7 @@ jobs:
     - name: Install dependencies
       run: |
         cd frontend
-        npm ci
+        npm ci --legacy-peer-deps
 
     - name: Build
       run: |
