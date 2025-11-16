@@ -167,10 +167,11 @@ export default function Home() {
       getStatistics()
       closeModal()
       toast.success("Transaction ajoutée avec succès")
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Erreur ajout transaction", error);
-      const errorMessage = error?.response?.data?.text?.[0] ||
-                          error?.response?.data?.amount?.[0] ||
+      const axiosError = error as { response?: { data?: { text?: string[]; amount?: string[] } } };
+      const errorMessage = axiosError?.response?.data?.text?.[0] ||
+                          axiosError?.response?.data?.amount?.[0] ||
                           "Erreur ajout transaction"
       toast.error(errorMessage)
     } finally {
@@ -196,10 +197,11 @@ export default function Home() {
       getStatistics()
       closeModal()
       toast.success("Transaction modifiée avec succès")
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Erreur modification transaction", error);
-      const errorMessage = error?.response?.data?.text?.[0] ||
-                          error?.response?.data?.amount?.[0] ||
+      const axiosError = error as { response?: { data?: { text?: string[]; amount?: string[] } } };
+      const errorMessage = axiosError?.response?.data?.text?.[0] ||
+                          axiosError?.response?.data?.amount?.[0] ||
                           "Erreur modification transaction"
       toast.error(errorMessage)
     } finally {
@@ -245,10 +247,12 @@ export default function Home() {
     getTransactions()
     getStatistics()
     getCategories()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     getTransactions(1)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText, filterType, filterCategory])
 
   const balance = statistics?.balance || 0

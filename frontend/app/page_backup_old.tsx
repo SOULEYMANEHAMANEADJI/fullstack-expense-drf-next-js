@@ -115,9 +115,10 @@ export default function Home() {
       toast.success("Transaction ajoutée avec succès")
       setText("")
       setAmount("")
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Erreur ajout transaction", error);
-      const errorMessage = error?.response?.data?.text?.[0] || error?.response?.data?.amount?.[0] || "Erreur ajout transaction"
+      const axiosError = error as { response?: { data?: { text?: string[]; amount?: string[] } } };
+      const errorMessage = axiosError?.response?.data?.text?.[0] || axiosError?.response?.data?.amount?.[0] || "Erreur ajout transaction"
       toast.error(errorMessage)
     } finally {
       setLoading(false)

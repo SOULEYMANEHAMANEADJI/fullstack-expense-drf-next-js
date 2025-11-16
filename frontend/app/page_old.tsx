@@ -49,7 +49,7 @@ export default function Home() {
     setLoading(true)
 
     try {
-      const res = await api.post<Transaction>(`transactions/`, {
+      await api.post<Transaction>(`transactions/`, {
         text,
         amount: Number(amount)
       })
