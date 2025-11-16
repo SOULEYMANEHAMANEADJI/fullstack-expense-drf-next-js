@@ -10,7 +10,7 @@ jobs:
   deploy-frontend:
     name: Deploy Frontend to Vercel
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && secrets.VERCEL_TOKEN != ''
 
     steps:
     - uses: actions/checkout@v4
@@ -34,6 +34,16 @@ jobs:
 
     - name: Deploy Project Artifacts to Vercel
       run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+  skip-deploy:
+    name: Skip Deploy (No Vercel Secrets)
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && secrets.VERCEL_TOKEN == ''
+    steps:
+    - name: Skip deployment
+      run: |
+        echo "⚠️ Vercel secrets not configured. Skipping deployment."
+        echo "To enable deployment, add VERCEL_TOKEN, VERCEL_ORG_ID, and VERCEL_PROJECT_ID to GitHub Secrets."
 
   create-release:
     name: Create Release
